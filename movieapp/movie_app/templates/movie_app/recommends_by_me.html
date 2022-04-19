@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content_block %}
+<br>
+<br>
+    <div>
+         <section class="p-5">
+           <div class="container">
+               <div class="row text-center g-4 ">
+                   {% for recommend in recommends %}
+                    <div class="col-md">
+                        <div class="card bg-dark text-light">
+                            <div class="card-body text-center">
+                                <h3 class="card-title mb-3">
+                                    {{recommend.movie}}<br><br>
+                                    <img src="{{recommend.movie.poster_link}}">
+                                </h3>
+                                <p class="card-text">
+                                    From {{ recommend.recommender }} to {{ recommend.recommend_to }}
+                                    at {{ recommend.date_recommended }} <br>
+                                    "{{recommend.message}}"<br>
+                                </p>
+                                {% if recommend.is_watched_by_receiver != True %}
+                                <p>
+                                    {{ recommend.recommend_to }} still does not watched the movie
+                                </p>
+                                {% else %}
+                                <p>
+                                    Watched by {{ recommend.recommend_to }} at {{recommend.date_watched_by_receiver}}
+                                    Which rated the movie by {{recommend.receiver_rating}}
+                                    <span class="fa fa-star checked"></span>
+                                </p>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                   {% endfor %}
+               </div>
+           </div>
+         </section>
+    </div>
+{% endblock %}

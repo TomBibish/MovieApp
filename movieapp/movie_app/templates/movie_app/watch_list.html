@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content_block %}
+<br><br>
+<div>
+     <section class="p-5">
+       <div class="container">
+           <div class="row text-center g-4 ">
+               {% for watch in my_watch_list %}
+                <div class="col-md">
+                    <div class="card bg-dark text-light">
+                        <div class="card-body text-center">
+                            <h3 class="card-title mb-3">
+                                {{watch.movie.title}}<br><br>
+                                <img src="{{watch.movie.poster_link}}">
+                            </h3>
+                            <p class="card-text">
+                                {{watch.movie.title}} by {{watch.movie.director}} <br>
+                                Released in {{watch.movie.released_year}}<br>
+                            </p>
+                            <p>
+                                Watched at {{watch.date_watch }}
+                                <br>
+                                {% if watch.liked == True %}
+                                    You have liked this movie
+                                {% else %}
+                                    You have not liked this movie
+                                {% endif %}
+                            </p>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+               {% endfor %}
+           </div>
+       </div>
+     </section>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content_block %}
+<br><br>
+<div>
+     <section class="p-5">
+       <div class="container">
+           <div class="row text-center g-4 ">
+                <div class="col-md">
+                    <div class="card bg-dark text-light">
+                        <div class="card-body text-center">
+                            <h3 class="card-title mb-3">
+                                {{movie.title}}<br><br>
+                                <img src="{{movie.poster_link}}">
+                            </h3>
+                            <p class="card-text">
+                                {{movie.title}} by {{movie.director}} <br>
+                                Released in {{movie.released_year}}<br>
+                                {{movie.duration_in_min}}<br>
+                                Genres: {{movie.genre}}
+                            </p>
+                            <p>
+                                {{movie.overview}}
+                            </p>
+                            <p>
+                                Main actors: {{movie.star1}}, {{movie.star2}}, {{movie.star3}} and {{movie.star4}}
+                            </p>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+           </div>
+       </div>
+     </section>
+             <section class="p-5">
+       <div class="container">
+           <div class="row text-center g-4 ">
+               <div class="col-md">
+                   <div class="card bg-dark text-light">
+                       <div class="card-body text-center">
+                           <p class="card-text">
+                               <a href="{% url 'add_to_watch_list' movie.id %}" class="btn btn-success">
+                                   Add to Watch List
+                               </a>
+                               <br><br>
+                                <a href="{% url 'recommend_to_movie' movie.id %}" class="btn btn-primary">
+                                    Add Recommend
+                                </a>
+                           </p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </section>
+</div>
+
+{% endblock %}

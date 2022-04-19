@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content_block %}
+<br>
+<br>
+    <div>
+         <section class="p-5">
+           <div class="container">
+               <div class="row text-center g-4 ">
+                   {% for recommend in recommends %}
+                    <div class="col-md">
+                        <div class="card bg-dark text-light">
+                            <div class="card-body text-center">
+                                <h3 class="card-title mb-3">
+                                    {{recommend.movie}}<br><br>
+                                    <img src="{{recommend.movie.poster_link}}">
+                                </h3>
+                                <p class="card-text">
+                                    From {{ recommend.recommender }} at {{ recommend.date_recommended }} <br>
+                                    "{{recommend.message}}"<br>
+                                </p>
+                                <p>
+                                    <a href="{% url 'respond_to_recommend' recommend.id %}" class="btn btn-primary">
+                                        Respond
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                   {% endfor %}
+               </div>
+           </div>
+         </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load movie_app_tags %}
+{% block content_block %}
+<br>
+<br>
+<div>
+        <section class="bg-primary text-light p-5">
+
+        <div class="container">
+
+            <div class="d-md-flex justify-content-between align-items-center">
+
+                <h3 class="mb-3 mb-md-0"> Search</h3>
+
+                <div class="input-group news-input">
+
+                    <input
+                    id="search_input"
+                    type="text"
+                    class="form-control d-sm"
+                    placeholder="By name/director/actor/genre"/>
+
+                    <button
+                    onclick="location.href = '/?filter_movie=' + document.getElementById('search_input').value "
+                    class="btn btn-dark btn-lg"
+                    type="button">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div style="margin:auto; width:10%">
+            <div class="btn-group">
+            <button type="button" class="btn dropdown-toggle btn-dark" data-bs-toggle="dropdown">Sort By</button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" onclick="location.href ='/?sort_by_rating=asc'">Rating(High to Low)</a>
+              <a class="dropdown-item" onclick="location.href ='/?sort_by_rating=desc'">Rating(Low to High)</a>
+              <a class="dropdown-item" onclick="location.href ='/?sort_by_year=asc'">Year Published(First to Last)</a>
+              <a class="dropdown-item" onclick="location.href ='/?sort_by_year=desc'">Year Published(Last to First)</a>
+            </div>
+            </div>
+        </div>
+    </section>
+</div>
+<br>
+<div>
+        <div class="page-links" style="text-align:center;align-items:center; margin:auto">
+                   <ul class="pagination justify-content-center">
+                    {% if page.has_previous %}
+                       <li class="page-item">
+                           <a class="page-link" href="?{% url_replace request 'page' page.previous_page_number %}">
+                               Previous
+                           </a>
+                       </li>
+                    {% endif %}
+                    {% for i in page.paginator.page_range %}
+                        {% if page.number == i %}
+                            <li class="page-item active">
+                                <a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page.has_next %}
+                       <li class="page-item">
+                           <a class="page-link" href="?{% url_replace request 'page' page.next_page_number %}">
+                               Next
+                           </a>
+                       </li>
+                    {% endif %}
+                   </ul>
+        </div>
+</div>
+<section class="p-5">
+    <br>
+       <div class="container">
+           <div class="row text-center g-4 ">
+               {% for movie in page.object_list %}
+               <div class="col-md">
+                   <div class="card bg-dark text-light">
+                       <div class="card-body text-center">
+                           <h3 class="card-title mb-3">
+                               <img src="{{movie.poster_link}}">
+                           </h3>
+                           <p class="card-text">
+                               {{movie.title}} ({{movie.released_year}})
+                               <br>
+                               {{movie.imdb_rating}}<span class="fa fa-star checked"></span>
+                           </p>
+                           <a href="{% url 'movie_details' movie.id %}" class="btn btn-primary">Read More</a>
+                       </div>
+                   </div>
+               </div>
+               {% endfor %}
+           </div>
+       </div>
+   </section>
+{% endblock %}
